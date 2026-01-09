@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const Person = require("./models/person");
-const person = require("./models/person");
 require("dotenv").config();
 
 const PORT = process.env.PORT;
@@ -99,8 +98,8 @@ app.put("/api/persons/:id", (req, res, next) => {
 app.delete("/api/persons/:id", (req, res, next) => {
   const id = req.params.id;
   Person.findByIdAndDelete(id)
-    .then((_) => {
-      res.status(204).end();
+    .then((result) => {
+      res.status(204).end({ result });
     })
     .catch((error) => next(error));
 });
